@@ -47,7 +47,6 @@
   function SimpleScrollbar(el) {
     this.target = el;
     this.bar = '<div class="ss-scroll">';
-    this.maxScrollSoFar = 0;
 
     this.wrapper = doc.createElement("div");
     this.wrapper.setAttribute("class", "ss-wrapper");
