@@ -10,7 +10,6 @@ var SimpleScrollbar = (function () {
 
     this.target = el;
     this.bar = '<div class="ss-scroll">';
-    this.maxScrollSoFar = 0;
 
     this.wrapper = document.createElement("div");
     this.wrapper.setAttribute("class", "ss-wrapper");
