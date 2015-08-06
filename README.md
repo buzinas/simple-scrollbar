@@ -13,3 +13,5 @@ No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015).
 `<div class="myClass"></div>`
 
 `<script>SimpleScrollbar.initEl(document.querySelector(".myClass"));</script>`
+
+[DEMO](//buzinas.github.io/simple-scrollbar)
