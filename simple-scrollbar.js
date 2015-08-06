@@ -88,9 +88,14 @@
     }
   }
 
-  var nodes = doc.querySelectorAll("*[data-ss-container]");
+  SimpleScrollbar.initEl = initEl;
+  SimpleScrollbar.initAll = function() {
+    var nodes = doc.querySelectorAll("*[data-ss-container]");
 
-  for (var i = 0; i < nodes.length; i++) {
-    initEl(nodes[i]);
-  }
+    for (var i = 0; i < nodes.length; i++) {
+      initEl(nodes[i]);
+    }
+  };
+
+  win.SimpleScrollbar = SimpleScrollbar;
 })(window);
