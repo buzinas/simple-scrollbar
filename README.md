@@ -1,5 +1,6 @@
 # SimpleScrollbar
-Very simple javascript library for creating a custom scrollbar cross-browser and cross-devices. Extremely lightweight, and it uses the native scroll events, so the performance is awesome!
+Very simple javascript library for creating a custom scrollbar cross-browser and cross-devices.
+Extremely lightweight, and it uses the native scroll events, so the performance is awesome!
 
 No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015).
 
