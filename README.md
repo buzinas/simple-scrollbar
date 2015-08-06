@@ -21,4 +21,4 @@ No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015).
 
 ---
 
-Based on [yairEO's fakeScroll] (https://github.com/yairEO/fakescroll)
+Based on [yairEO's fakeScroll] (https://github.com/yairEO/fakescroll) jQuery plugin.
