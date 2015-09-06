@@ -2,7 +2,7 @@
   var raf = w.requestAnimationFrame || w.setImmediate || function(c) { return setTimeout(c, 0); };
 
   function initEl(el) {
-    if (el.hasOwnProperty('data-simple-scrollbar')) return;
+    if ({}.hasOwnProperty.call(el, 'data-simple-scrollbar')) return;
     Object.defineProperty(el, 'data-simple-scrollbar', new SimpleScrollbar(el));
   }
 
