@@ -43,11 +43,11 @@
     this.target = el;
     this.bar = '<div class="ss-scroll">';
 
-    this.wrapper = d.createElement("div");
-    this.wrapper.setAttribute("class", "ss-wrapper");
+    this.wrapper = d.createElement('div');
+    this.wrapper.setAttribute('class', 'ss-wrapper');
 
-    this.el = d.createElement("div");
-    this.el.setAttribute("class", "ss-content");
+    this.el = d.createElement('div');
+    this.el.setAttribute('class', 'ss-content');
 
     this.wrapper.appendChild(this.el);
 
@@ -56,7 +56,7 @@
     }
     this.target.appendChild(this.wrapper);
 
-    this.target.insertAdjacentHTML("beforeend", this.bar);
+    this.target.insertAdjacentHTML('beforeend', this.bar);
     this.bar = this.target.lastChild;
 
     dragDealer(this.bar, this);
@@ -65,7 +65,7 @@
     this.el.addEventListener('scroll', this.moveBar.bind(this));
     this.el.addEventListener('mouseenter', this.moveBar.bind(this));
 
-    this.target.classList.add("ss-container");
+    this.target.classList.add('ss-container');
   }
 
   ss.prototype = {
@@ -83,7 +83,7 @@
   }
   
   function initAll() {
-    var nodes = d.querySelectorAll("*[ss-container]");
+    var nodes = d.querySelectorAll('*[ss-container]');
 
     for (var i = 0; i < nodes.length; i++) {
       initEl(nodes[i]);
@@ -92,7 +92,7 @@
   
   d.addEventListener('DOMContentLoaded', initAll);
   ss.initEl = initEl;
-  ss.initAll = initEl;All
+  ss.initAll = initAll;
 
   w.SimpleScrollbar = ss;
 })(window, document);
