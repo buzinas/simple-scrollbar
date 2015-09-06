@@ -3,11 +3,11 @@ Very simple javascript library for creating a custom scrollbar cross-browser and
 
 Extremely lightweight, and it uses the native scroll events, so the performance is awesome!
 
-No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015).
+No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015) - you choose what fits best for you.
 
 ## Usage
 ### Auto-binding
-`<div data-ss-container></div>`
+`<div ss-container></div>`
 
 `<script>SimpleScrollbar.initAll();</script>`
 
