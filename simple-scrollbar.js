@@ -81,15 +81,16 @@
       });
     }
   }
-
-  SimpleScrollbar.initEl = initEl;
-  SimpleScrollbar.initAll = function() {
+  
+  d.addEventListener('DOMContentLoaded', function() {
     var nodes = d.querySelectorAll("*[ss-container]");
 
     for (var i = 0; i < nodes.length; i++) {
       initEl(nodes[i]);
     }
-  };
+  });
+  
+  SimpleScrollbar.initEl = initEl;
 
   w.SimpleScrollbar = SimpleScrollbar;
 })(window, document);
