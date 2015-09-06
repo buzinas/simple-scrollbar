@@ -1,14 +1,9 @@
-;(function(win) {
-  var doc = win.document,
-      docElm = doc.documentElement,
-      raf = win.requestAnimationFrame;
+(function(w, d) {
+  var raf = w.requestAnimationFrame || w.setImmediate || function(c) { return setTimeout(c, 0); };
 
   function initEl(el) {
-    if (el.hasOwnProperty('data-simple-scrollbar'))
-      return;
-
-    Object.defineProperty(el, 'data-simple-scrollbar',
-      new SimpleScrollbar(el));
+    if (el.hasOwnProperty('data-simple-scrollbar')) return;
+    Object.defineProperty(el, 'data-simple-scrollbar', new SimpleScrollbar(el));
   }
 
   // Mouse drag handler
@@ -18,10 +13,10 @@
     el.addEventListener('mousedown', function(e) {
       lastPageY = e.pageY;
       el.classList.add('ss-grabbed');
-      doc.body.classList.add('ss-grabbed');
+      d.body.classList.add('ss-grabbed');
 
-      doc.addEventListener('mousemove', drag);
-      doc.addEventListener('mouseup', stop);
+      d.addEventListener('mousemove', drag);
+      d.addEventListener('mouseup', stop);
 
       return false;
     });
@@ -30,16 +25,16 @@
       var delta = e.pageY - lastPageY;
       lastPageY = e.pageY;
 
-      raf(function(){
+      raf(function() {
         context.el.scrollTop += delta / context.scrollRatio;
       });
     }
 
     function stop() {
       el.classList.remove('ss-grabbed');
-      doc.body.classList.remove('ss-grabbed');
-      doc.removeEventListener('mousemove', drag);
-      doc.removeEventListener('mouseup', stop);
+      d.body.classList.remove('ss-grabbed');
+      d.removeEventListener('mousemove', drag);
+      d.removeEventListener('mouseup', stop);
     }
   }
 
@@ -48,10 +43,10 @@
     this.target = el;
     this.bar = '<div class="ss-scroll">';
 
-    this.wrapper = doc.createElement("div");
+    this.wrapper = d.createElement("div");
     this.wrapper.setAttribute("class", "ss-wrapper");
 
-    this.el = doc.createElement("div");
+    this.el = d.createElement("div");
     this.el.setAttribute("class", "ss-content");
 
     this.wrapper.appendChild(this.el);
@@ -76,8 +71,8 @@
   SimpleScrollbar.prototype = {
     moveBar: function(e) {
       var totalHeight = this.el.scrollHeight,
-      ownHeight   = this.el.clientHeight,
-      _this        = this;
+          ownHeight = this.el.clientHeight,
+          _this = this;
 
       this.scrollRatio = ownHeight / totalHeight;
 
@@ -89,12 +84,12 @@
 
   SimpleScrollbar.initEl = initEl;
   SimpleScrollbar.initAll = function() {
-    var nodes = doc.querySelectorAll("*[data-ss-container]");
+    var nodes = d.querySelectorAll("*[ss-container]");
 
     for (var i = 0; i < nodes.length; i++) {
       initEl(nodes[i]);
     }
   };
 
-  win.SimpleScrollbar = SimpleScrollbar;
-})(window);
+  w.SimpleScrollbar = SimpleScrollbar;
+})(window, document);
