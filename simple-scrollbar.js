@@ -39,7 +39,7 @@
   }
 
   // Constructor
-  function SimpleScrollbar(el) {
+  function ss(el) {
     this.target = el;
     this.bar = '<div class="ss-scroll">';
 
@@ -68,7 +68,7 @@
     this.target.classList.add("ss-container");
   }
 
-  SimpleScrollbar.prototype = {
+  ss.prototype = {
     moveBar: function(e) {
       var totalHeight = this.el.scrollHeight,
           ownHeight = this.el.clientHeight,
@@ -82,15 +82,17 @@
     }
   }
   
-  d.addEventListener('DOMContentLoaded', function() {
+  function initAll() {
     var nodes = d.querySelectorAll("*[ss-container]");
 
     for (var i = 0; i < nodes.length; i++) {
       initEl(nodes[i]);
     }
-  });
+  }
   
-  SimpleScrollbar.initEl = initEl;
+  d.addEventListener('DOMContentLoaded', initAll);
+  ss.initEl = initEl;
+  ss.initAll = initEl;All
 
-  w.SimpleScrollbar = SimpleScrollbar;
+  w.SimpleScrollbar = ss;
 })(window, document);
