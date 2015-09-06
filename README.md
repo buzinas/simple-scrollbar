@@ -9,7 +9,7 @@ http://buzinas.github.io/simple-scrollbar
 - Extremely lightweight (less than 1KB after gzip and minify)
 - It uses the native scroll events, so:
   - All the events work and are smooth (mouse wheel, space, page down, page up, arrows etc).
-  - so the performance is awesome!
+  - The performance is awesome!
 - No dependencies, completely vanilla Javascript!
 
 ## Browser Support
