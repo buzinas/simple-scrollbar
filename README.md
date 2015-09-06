@@ -17,4 +17,4 @@ No dependencies, developed with vanilla javascript!
 
 `<script>SimpleScrollbar.initEl(document.querySelector(".myClass"));</script>`
 
-[DEMO](//buzinas.github.io/simple-scrollbar)
+Demo http://buzinas.github.io/simple-scrollbar
