@@ -39,7 +39,7 @@ If you want to manually turn your div in a SimpleScrollbar, you can use the `Sim
     </script>
 
 ### Dynamically added content
-If you use some client Framework, like AngularJS, Aurelia, CalangoJS, etc - or any library that includes DOMElements dynamically in your app, and you want to use the SimpleScrollbar `ss-container` attribute, you can use the `SimpleScrollbar.initAll();` method, and it will turn all the elements with that attribute in a scrollable one.
+If you use some client Framework, like AngularJS, Aurelia, CalangoJS, etc - or any library that includes DOMElements dynamically in your app, and you want to use the SimpleScrollbar `ss-container` attribute, you can use the `SimpleScrollbar.initAll` method, and it will turn all the elements with that attribute in a scrollable one.
 
     <script>
       var div = document.createElement('div');
