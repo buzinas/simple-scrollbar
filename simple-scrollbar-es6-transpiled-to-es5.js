@@ -92,7 +92,7 @@ var SimpleScrollbar = (function () {
   }, {
     key: "initAll",
     value: function initAll() {
-      var nodes = document.querySelectorAll("*[data-ss-container]");
+      var nodes = document.querySelectorAll("*[ss-container]");
 
       for (var i = 0; i < nodes.length; i++) {
         SimpleScrollbar.initEl(nodes[i]);
