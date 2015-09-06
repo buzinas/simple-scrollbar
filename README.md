@@ -1,6 +1,9 @@
 # SimpleScrollbar
 Very simple vanilla javascript library for creating a custom scrollbar cross-browser and cross-devices.
 
+## Demo
+http://buzinas.github.io/simple-scrollbar
+
 ## Benefits:
 
 - Extremely lightweight (less than 1KB after gzip and minify)
@@ -19,14 +22,35 @@ If you want to make it works down to IE9, the only thing you need to do is to ad
 
 ## Usage
 ### Auto-binding
-    <div ss-container>One</div>
-    <div ss-container>Two</div>`
+Include the attribute `ss-container` in any `<div>` that you want to make scrollable, and the library will turn it for you
 
-    <script>SimpleScrollbar.initAll();</script>`
+    <div ss-container>One</div>
+    <div ss-container>
+      <span>Two</span>
+    </div>
 
 ### Manual binding
-    <div class="myClass"></div>`
+If you want to manually turn your div in a SimpleScrollbar, you can use the `SimpleScrollbar.initEl` method.
+    <div class="myClass"></div>
 
-    <script>SimpleScrollbar.initEl(document.querySelector(".myClass"));</script>`
+    <script>
+      var el = document.querySelector('.myClass');
+      SimpleScrollbar.initEl(el);
+    </script>
 
-Demo http://buzinas.github.io/simple-scrollbar
+### Dynamically added content
+If you use some client Framework, like AngularJS, Aurelia, CalangoJS, etc - or any library that includes DOMElements dynamically in your app, and you want to use the SimpleScrollbar `ss-container` attribute, you can use the `SimpleScrollbar.initAll();` method, and it will turn all the elements with that attribute in a scrollable one.
+
+    <script>
+      var div = document.createElement('div');
+      div.insertAdjacentHTML('afterbegin', '<span>One</span>');
+      div.setAttribute('ss-container', true);
+      
+      var otherDiv = div.cloneNode(true);
+      otherDiv.querySelector('span').textContent = 'Two';
+      
+      document.body.appendChild(div);
+      document.body.appendChild(otherDiv);
+      
+      SimpleScrollbar.initAll();
+    </script>
