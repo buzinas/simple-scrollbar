@@ -19,14 +19,14 @@ If you want to make it works down to IE9, the only thing you need to do is to ad
 
 ## Usage
 ### Auto-binding
-`<div ss-container>One</div>`
-`<div ss-container>Two</div>`
+    <div ss-container>One</div>
+    <div ss-container>Two</div>`
 
-`<script>SimpleScrollbar.initAll();</script>`
+    <script>SimpleScrollbar.initAll();</script>`
 
 ### Manual binding
-`<div class="myClass"></div>`
+    <div class="myClass"></div>`
 
-`<script>SimpleScrollbar.initEl(document.querySelector(".myClass"));</script>`
+    <script>SimpleScrollbar.initEl(document.querySelector(".myClass"));</script>`
 
 Demo http://buzinas.github.io/simple-scrollbar
