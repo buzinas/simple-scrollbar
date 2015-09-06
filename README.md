@@ -3,11 +3,12 @@ Very simple javascript library for creating a custom scrollbar cross-browser and
 
 Extremely lightweight, and it uses the native scroll events, so the performance is awesome!
 
-No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015) - you choose what fits best for you.
+No dependencies, developed with vanilla javascript!
 
 ## Usage
 ### Auto-binding
-`<div ss-container></div>`
+`<div ss-container>One</div>`
+`<div ss-container>Two</div>`
 
 `<script>SimpleScrollbar.initAll();</script>`
 
@@ -17,8 +18,3 @@ No dependencies, developed on both vanilla Javascript (ES5) and ES6 (ES2015) - y
 `<script>SimpleScrollbar.initEl(document.querySelector(".myClass"));</script>`
 
 [DEMO](//buzinas.github.io/simple-scrollbar)
-
-
----
-
-Based on [yairEO's fakeScroll] (https://github.com/yairEO/fakescroll) jQuery plugin.
