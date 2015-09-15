@@ -24,33 +24,38 @@ If you want to make it works down to IE9, the only thing you need to do is to ad
 ### Auto-binding
 Include the attribute `ss-container` in any `<div>` that you want to make scrollable, and the library will turn it for you
 
-    <div ss-container>One</div>
-    <div ss-container>
-      <span>Two</span>
-    </div>
+```HTML
+<div ss-container>One</div>
+<div ss-container>
+  <span>Two</span>
+</div>
+```
 
 ### Manual binding
 If you want to manually turn your div in a SimpleScrollbar, you can use the `SimpleScrollbar.initEl` method.
-    <div class="myClass"></div>
 
-    <script>
-      var el = document.querySelector('.myClass');
-      SimpleScrollbar.initEl(el);
-    </script>
+```HTML
+<div class="myClass"></div>
+
+<script>
+  var el = document.querySelector('.myClass');
+  SimpleScrollbar.initEl(el);
+</script>
+```
 
 ### Dynamically added content
 If you use some client Framework, like AngularJS, Aurelia, CalangoJS, etc - or any library that includes DOMElements dynamically in your app, and you want to use the SimpleScrollbar `ss-container` attribute, you can use the `SimpleScrollbar.initAll` method, and it will turn all the elements with that attribute in a scrollable one for you.
 
-    <script>
-      var div = document.createElement('div');
-      div.insertAdjacentHTML('afterbegin', '<span>One</span>');
-      div.setAttribute('ss-container', true);
-      
-      var otherDiv = div.cloneNode(true);
-      otherDiv.querySelector('span').textContent = 'Two';
-      
-      document.body.appendChild(div);
-      document.body.appendChild(otherDiv);
-      
-      SimpleScrollbar.initAll();
-    </script>
+```Javascript
+var div = document.createElement('div');
+div.insertAdjacentHTML('afterbegin', '<span>One</span>');
+div.setAttribute('ss-container', true);
+
+var otherDiv = div.cloneNode(true);
+otherDiv.querySelector('span').textContent = 'Two';
+
+document.body.appendChild(div);
+document.body.appendChild(otherDiv);
+
+SimpleScrollbar.initAll();
+```
