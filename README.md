@@ -18,7 +18,9 @@ It was developed for evergreen browsers, but it works both on IE10 and IE11 eith
 
 If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill] (https://github.com/eligrey/classList.js).
 
-    <!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
+```HTML
+<!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
+```
 
 ## Usage
 ### Auto-binding
