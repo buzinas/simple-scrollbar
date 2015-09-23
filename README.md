@@ -4,7 +4,7 @@ Very simple vanilla javascript library for creating a custom scrollbar cross-bro
 ## Demo
 http://buzinas.github.io/simple-scrollbar
 
-## Benefits:
+## Benefits
 
 - Extremely lightweight (less than 1KB after gzip and minify)
 - It uses the native scroll events, so:
