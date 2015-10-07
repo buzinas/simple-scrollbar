@@ -77,11 +77,17 @@
       this.scrollRatio = ownHeight / totalHeight;
 
       raf(function() {
-        _this.bar.style.cssText = 'height:' + (ownHeight / totalHeight) * 100 + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-' + (_this.target.clientWidth - _this.bar.clientWidth) + 'px;';
+        // Hide scrollbar if no scrolling is possible
+        if(_this.scrollRatio === 1) {
+          _this.bar.classList.add('ss-hidden')
+        } else {
+          _this.bar.classList.remove('ss-hidden')
+          _this.bar.style.cssText = 'height:' + (_this.scrollRatio) * 100 + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-' + (_this.target.clientWidth - _this.bar.clientWidth) + 'px;';
+        }
       });
     }
   }
-  
+
   function initAll() {
     var nodes = d.querySelectorAll('*[ss-container]');
 
@@ -89,7 +95,7 @@
       initEl(nodes[i]);
     }
   }
-  
+
   d.addEventListener('DOMContentLoaded', initAll);
   ss.initEl = initEl;
   ss.initAll = initAll;
