@@ -38,10 +38,10 @@
 }
 
 .ss-scroll.ss-hidden {
-    opacity: 0;
+    display: none;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
-    display: none;
+    opacity: 0;
 }
 
 .ss-container:hover .ss-scroll {
