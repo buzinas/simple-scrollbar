@@ -2,7 +2,9 @@
 Very simple vanilla javascript library for creating a custom scrollbar cross-browser and cross-devices.
 
 ## Demo
-http://buzinas.github.io/simple-scrollbar
+
+[Original demo by buzinas](http://buzinas.github.io/simple-scrollbar)
+[This forks demo](http://graydixon.github.io/simple-scrollbar)
 
 ## Benefits
 
@@ -12,14 +14,18 @@ http://buzinas.github.io/simple-scrollbar
   - The performance is awesome!
 - No dependencies, completely vanilla Javascript!
 
+## This Fork
+
+- Added alternative methods for adding / removing classes (using el.className instead of el.classList when .classList is absent) negating the need for the polyfill mentioned below.
+
 ## Browser Support
 
-It was developed for evergreen browsers, but it works both on IE10 and IE11 either.
+It was developed for evergreen browsers, but it works on <del> both IE10 and IE11 either </del> IE9 upwards.
 
-If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill] (https://github.com/eligrey/classList.js).
+<del>If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill] (https://github.com/eligrey/classList.js).</del>
 
 ```HTML
-<!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
+<del><!--[if IE 9]><script src="classList.min.js"></script><![endif]--></del>
 ```
 
 ## Usage
