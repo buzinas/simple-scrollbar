@@ -3,8 +3,8 @@ Very simple vanilla javascript library for creating a custom scrollbar cross-bro
 
 ## Demo
 
-[Original demo by buzinas](http://buzinas.github.io/simple-scrollbar)
-[This forks demo](http://graydixon.github.io/simple-scrollbar)
+ - [Original demo by buzinas](http://buzinas.github.io/simple-scrollbar)
+ - [This forks demo](http://graydixon.github.io/simple-scrollbar)
 
 ## Benefits
 
@@ -25,7 +25,7 @@ It was developed for evergreen browsers, but it works on <del> both IE10 and IE1
 <del>If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill] (https://github.com/eligrey/classList.js).</del>
 
 ```HTML
-<del><!--[if IE 9]><script src="classList.min.js"></script><![endif]--></del>
+<!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
 ```
 
 ## Usage
