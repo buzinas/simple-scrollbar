@@ -1,7 +1,12 @@
+.ss-container {
+    position: relative;
+    float: left;
+}
+
 .ss-wrapper {
     overflow: hidden;
     height: 100%;
-    position: relative;
+    position: absolute;
     z-index: 1;
     float: left;
 }
