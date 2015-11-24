@@ -62,5 +62,5 @@ document.body.appendChild(otherDiv);
 SimpleScrollbar.initAll();
 ```
 
-### Credits
+## Credits
 Inspired by yairEO's jQuery plugin ([fakescroll](https://github.com/yairEO/fakescroll))
