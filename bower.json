@@ -2,7 +2,7 @@
   "name": "SimpleScrollbar",
   "version": "0.2.0",
   "authors": [
-    Vitor Buzinaro (https://github.com/buzinas)"
+    "Vitor Buzinaro (https://github.com/buzinas)"
   ],
   "description": "Very simple and lightweight vanilla javascript library for creating a custom scrollbar cross-browser.",
   "main": [
