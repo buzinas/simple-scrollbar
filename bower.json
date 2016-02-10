@@ -1,0 +1,25 @@
+{
+  "name": "SimpleScrollbar",
+  "version": "0.2.0",
+  "authors": [
+    "Vitor Buzinaro (https://github.com/buzinas)"
+  ],
+  "description": "Very simple and lightweight vanilla javascript library for creating a custom scrollbar cross-browser.",
+  "main": [
+    "simple-scrollbar.min.js",
+    "simple-scrollbar.css"
+  ],
+  "moduleType": "globals",
+  "license": "",
+  "homepage": "https://github.com/buzinas/simple-scrollbar/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}
