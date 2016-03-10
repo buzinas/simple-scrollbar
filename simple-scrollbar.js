@@ -41,6 +41,7 @@
   // Constructor
   function ss(el) {
     this.target = el;
+    
     this.bar = '<div class="ss-scroll">';
 
     this.wrapper = d.createElement('div');
@@ -65,7 +66,12 @@
     this.el.addEventListener('scroll', this.moveBar.bind(this));
     this.el.addEventListener('mouseenter', this.moveBar.bind(this));
 
-    this.target.classList.add('ss-container');
+    this.target.classList.add('ss-container'); 
+      
+    var css = window.getComputedStyle(el);
+  	if (css['height'] === '0px' && css['max-height'] !== '0px') {
+    	el.style.height = css['max-height'];
+    }
   }
 
   ss.prototype = {
