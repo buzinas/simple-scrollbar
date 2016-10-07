@@ -1,0 +1,23 @@
+{
+  "name": "simple-scrollbar",
+  "version": "0.2.0",
+  "description": "Very simple vanilla javascript library for creating a custom scrollbar cross-browser and cross-devices.",
+  "main": "simple-scrollbar.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buzinas/simple-scrollbar.git"
+  },
+  "keywords": [
+    "scrollbar",
+    "custom-scrollbar",
+    "tiny-scrollbar",
+    "simple-scrollbar",
+    "vanilla-js"
+  ],
+  "author": "Vitor Buzinaro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/buzinas/simple-scrollbar/issues"
+  },
+  "homepage": "https://github.com/buzinas/simple-scrollbar#readme"
+}
