@@ -109,7 +109,8 @@
     w.addEventListener("resize", resizeRight);
 
     function resizeRight() {
-      sheet.innerHTML = ".ss-content{right: " + -18 / w.devicePixelRatio + "px;}";
+      var dpr = w.devicePixelRatio || w.screen.deviceXDPI / w.screen.logicalXDPI || 1
+      sheet.innerHTML = ".ss-content{right: " + -18 / dpr + "px;}";
     }
   }
 
