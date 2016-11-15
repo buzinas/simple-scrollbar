@@ -102,7 +102,21 @@
     }
   }
 
-  d.addEventListener('DOMContentLoaded', initAll);
+  function handleResize() {
+    var sheet = d.createElement("style");
+    resizeRight();
+    d.body.appendChild(sheet);
+    w.addEventListener("resize", resizeRight);
+
+    function resizeRight() {
+      sheet.innerHTML = ".ss-content{right: " + -18 / w.devicePixelRatio + "px;}";
+    }
+  }
+
+  d.addEventListener('DOMContentLoaded', function() {
+    initAll();
+    handleResize();
+  });
   ss.initEl = initEl;
   ss.initAll = initAll;
 
