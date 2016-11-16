@@ -103,14 +103,14 @@
   }
 
   function handleResize() {
-    var sheet = d.createElement("style");
+    var sheet = d.createElement('style');
     resizeRight();
     d.body.appendChild(sheet);
-    w.addEventListener("resize", resizeRight);
+    w.addEventListener('resize', resizeRight);
 
     function resizeRight() {
       var dpr = w.devicePixelRatio || w.screen.deviceXDPI / w.screen.logicalXDPI || 1
-      sheet.innerHTML = ".ss-content{right: " + -18 / dpr + "px;}";
+      sheet.innerHTML = '.ss-content{right: ' + -18 / dpr + 'px;}';
     }
   }
 
