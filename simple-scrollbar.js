@@ -84,7 +84,7 @@
 
       raf(function() {
         // Hide scrollbar if no scrolling is possible
-        if(_this.scrollRatio === 1) {
+        if(_this.scrollRatio >= 1) {
           _this.bar.classList.add('ss-hidden')
         } else {
           _this.bar.classList.remove('ss-hidden')
