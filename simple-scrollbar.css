@@ -9,11 +9,9 @@
 
 .ss-content {
   height: 100%;
-  width: 100%;
-  padding: 0 32px 0 0;
   position: relative;
-  right: -18px;
-  overflow: auto;
+  margin-right: -18px;
+  overflow-y: scroll;
   box-sizing: border-box;
 }
 
