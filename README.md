@@ -16,7 +16,7 @@ http://buzinas.github.io/simple-scrollbar
 
 It was developed for evergreen browsers, but it works both on IE10 and IE11 either.
 
-If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill] (https://github.com/eligrey/classList.js).
+If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill](https://github.com/eligrey/classList.js).
 
 ```HTML
 <!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
@@ -46,7 +46,7 @@ If you want to manually turn your div in a SimpleScrollbar, you can use the `Sim
 ```
 
 ### Dynamically added content
-If you use some client Framework, like AngularJS, Aurelia, CalangoJS, etc - or any library that includes DOMElements dynamically in your app, and you want to use the SimpleScrollbar `ss-container` attribute, you can use the `SimpleScrollbar.initAll` method, and it will turn all the elements with that attribute in a scrollable one for you.
+If you use some client Framework, like Angular, Aurelia, etc - or any library that includes DOMElements dynamically in your app, and you want to use the SimpleScrollbar `ss-container` attribute, you can use the `SimpleScrollbar.initAll` method, and it will turn all the elements with that attribute in a scrollable one for you.
 
 ```Javascript
 var div = document.createElement('div');
