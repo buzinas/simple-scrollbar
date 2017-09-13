@@ -18,7 +18,8 @@
 }
 
 .ss-content.rtl {
-  right: 0;
+  width: calc(100% + 18px);
+  right: auto;
 }
 
 .ss-scroll {
