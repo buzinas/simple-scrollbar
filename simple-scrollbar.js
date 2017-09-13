@@ -41,7 +41,7 @@
   // Constructor
   function ss(el) {
     this.target = el;
-    
+
     this.bar = '<div class="ss-scroll">';
 
     this.wrapper = d.createElement('div');
@@ -66,8 +66,8 @@
     this.el.addEventListener('scroll', this.moveBar.bind(this));
     this.el.addEventListener('mouseenter', this.moveBar.bind(this));
 
-    this.target.classList.add('ss-container'); 
-      
+    this.target.classList.add('ss-container');
+
     var css = window.getComputedStyle(el);
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
@@ -82,13 +82,17 @@
 
       this.scrollRatio = ownHeight / totalHeight;
 
+      var actualHeight = _this.scrollRatio * 100;
+      var minHeight = 10;
+      var height = actualHeight < 10 ? minHeight : actualHeight;
+
       raf(function() {
         // Hide scrollbar if no scrolling is possible
         if(_this.scrollRatio >= 1) {
           _this.bar.classList.add('ss-hidden')
         } else {
           _this.bar.classList.remove('ss-hidden')
-          _this.bar.style.cssText = 'height:' + (_this.scrollRatio) * 100 + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-' + (_this.target.clientWidth - _this.bar.clientWidth) + 'px;';
+          _this.bar.style.cssText = 'height:' + height + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:-' + (_this.target.clientWidth - _this.bar.clientWidth) + 'px;';
         }
       });
     }
