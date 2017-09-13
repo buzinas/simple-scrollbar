@@ -41,7 +41,9 @@
   // Constructor
   function ss(el) {
     this.target = el;
-    
+
+    var direction = window.getComputedStyle(this.target).direction;
+
     this.bar = '<div class="ss-scroll">';
 
     this.wrapper = d.createElement('div');
@@ -49,6 +51,9 @@
 
     this.el = d.createElement('div');
     this.el.setAttribute('class', 'ss-content');
+    if (direction === 'rtl') {
+      this.el.classList.add('rtl');
+    }
 
     this.wrapper.appendChild(this.el);
 
@@ -66,8 +71,8 @@
     this.el.addEventListener('scroll', this.moveBar.bind(this));
     this.el.addEventListener('mouseenter', this.moveBar.bind(this));
 
-    this.target.classList.add('ss-container'); 
-      
+    this.target.classList.add('ss-container');
+
     var css = window.getComputedStyle(el);
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
