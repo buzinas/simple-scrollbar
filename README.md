@@ -11,6 +11,7 @@ http://buzinas.github.io/simple-scrollbar
   - All the events work and are smooth (mouse wheel, space, page down, page up, arrows etc).
   - The performance is awesome!
 - No dependencies, completely vanilla Javascript!
+- Supports RTL-directed containers and pages!
 
 ## Browser Support
 
@@ -21,6 +22,10 @@ If you want to make it works down to IE9, the only thing you need to do is to ad
 ```HTML
 <!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
 ```
+
+## RTL Support
+
+The SimpleScrollbar supports both LTR _(Left-To-Right)_ and RTL _(Right-To-Left)_ pages and containers. It will detect the direction automatically. No need to specify it in config!
 
 ## Usage
 ### Auto-binding
