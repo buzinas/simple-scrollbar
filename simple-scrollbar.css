@@ -17,6 +17,11 @@
   box-sizing: border-box;
 }
 
+.ss-content.rtl {
+  width: calc(100% + 18px);
+  right: auto;
+}
+
 .ss-scroll {
   position: relative;
   background: rgba(0, 0, 0, 0.1);
