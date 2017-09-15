@@ -11,7 +11,7 @@ http://buzinas.github.io/simple-scrollbar
   - All the events work and are smooth (mouse wheel, space, page down, page up, arrows etc).
   - The performance is awesome!
 - No dependencies, completely vanilla Javascript!
-- RTL support (thanks to [@BabkinAleksandr](https://github.com/BabkinAleksandr)
+- RTL support (thanks to [@BabkinAleksandr](https://github.com/BabkinAleksandr))
 
 ## Browser Support
 
