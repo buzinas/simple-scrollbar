@@ -68,16 +68,24 @@
 
     dragDealer(this.bar, this);
     this.moveBar();
+    
+    var moveBar = this.moveBar.bind(this)
+    
+    this.el.addEventListener('scroll', moveBar);
+    this.el.addEventListener('mouseenter', moveBar);
 
-    this.el.addEventListener('scroll', this.moveBar.bind(this));
-    this.el.addEventListener('mouseenter', this.moveBar.bind(this));
-
-    this.target.classList.add('ss-container');
-
+    this.target.classList.add('ss-container'); 
+      
     var css = window.getComputedStyle(el);
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
     }
+
+    var mutationObserver = new MutationObserver(function(mutations){
+        moveBar();
+    });
+    var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
+    mutationObserver.observe(this.el, observerOptions);
   }
 
   ss.prototype = {
