@@ -1,6 +1,7 @@
 (function(w, d) {
   var raf = w.requestAnimationFrame || w.setImmediate || function(c) { return setTimeout(c, 0); };
-
+  var MutationObserver =window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+  var observer;
   function initEl(el) {
     if (el.hasOwnProperty('data-simple-scrollbar')) return;
     Object.defineProperty(el, 'data-simple-scrollbar', new SimpleScrollbar(el));
@@ -81,11 +82,11 @@
     	el.style.height = css['max-height'];
     }
 
-    var mutationObserver = new MutationObserver(function(mutations){
+    var observer = new MutationObserver(function(mutations){
         moveBar();
     });
     var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
-    mutationObserver.observe(this.el, observerOptions);
+    observer.observe(this.el, observerOptions);
   }
 
   ss.prototype = {
@@ -120,10 +121,12 @@
       initEl(nodes[i]);
     }
   }
-
+  function destroy(){
+    observer.disconnect();
+  }
   d.addEventListener('DOMContentLoaded', initAll);
   ss.initEl = initEl;
   ss.initAll = initAll;
-
+  ss.destroy=destroy;
   w.SimpleScrollbar = ss;
 })(window, document);
