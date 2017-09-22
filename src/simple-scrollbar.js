@@ -80,12 +80,10 @@
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
     }
-
     var mutationObserver = new MutationObserver(function(mutations){
       mutations.forEach(console.info);
       moveBar();
-    });
-    var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
+    });    var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
     mutationObserver.observe(this.el, observerOptions);
   }
 
