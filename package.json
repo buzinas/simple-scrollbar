@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/buzinas/simple-scrollbar.git"
   },
+  "scripts": {
+    "test": "karma start"
+  },
   "keywords": [
     "scrollbar",
     "custom-scrollbar",
@@ -19,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/buzinas/simple-scrollbar/issues"
   },
-  "homepage": "https://github.com/buzinas/simple-scrollbar#readme"
+  "homepage": "https://github.com/buzinas/simple-scrollbar#readme",
+  "devDependencies": {
+    "jquery": "^3.2.1",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4"
+  },
+  "dependencies": {
+    "jasmine-core": "^2.8.0"
+  }
 }

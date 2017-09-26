@@ -82,7 +82,8 @@
     }
 
     var mutationObserver = new MutationObserver(function(mutations){
-        moveBar();
+      mutations.forEach(console.info);
+      moveBar();
     });
     var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
     mutationObserver.observe(this.el, observerOptions);
