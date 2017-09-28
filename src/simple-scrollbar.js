@@ -48,7 +48,25 @@
     }
     return hiddenParent;
   }
-  
+  function debounce(delay, func) {
+    var due;
+    return function () {
+        const start = (new Date()).valueOf();
+        function tryCall() {
+            const now = (new Date()).valueOf();
+            if (now >= due) {
+                func();
+            } else {
+                setTimeout(tryCall, due - now);
+            }
+        }
+        if (due !== undefined && start < due) {
+        } else {
+            setTimeout(tryCall, delay);
+        }
+        due = start + delay;
+    };
+}
   // Constructor
   function ss(el) {
     this.target = el;
@@ -79,8 +97,8 @@
 
     dragDealer(this.bar, this);
     this.moveBar();
-    
-    var moveBar = this.moveBar.bind(this)
+    var moveBar = this.moveBar.bind(this);
+    const moveBarDebounced = debounce(200, moveBar);
     
     this.el.addEventListener('scroll', moveBar);
     this.el.addEventListener('mouseenter', moveBar);
@@ -93,7 +111,6 @@
     }
     if(el.offsetHeight===0){
       var visibilityObserver=new MutationObserver(function(visibilityMutations){
-        console.log("Visibility change called!!");
         moveBar();
         visibilityObserver.disconnect();
       });
@@ -107,8 +124,7 @@
       }
     }
     var mutationObserver = new MutationObserver(function(mutations){
-      mutations.forEach(console.info);
-      moveBar();
+      moveBarDebounced();
     });    
     var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
     mutationObserver.observe(this.el, observerOptions);
