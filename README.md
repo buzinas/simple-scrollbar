@@ -66,10 +66,6 @@ document.body.appendChild(otherDiv);
 
 SimpleScrollbar.initAll();
 ```
-### Destroying scrollbar listener to listen on any DOM changes inside element
-```Javascript
-SimpleScrollbar.destroy();
-```
 
 ## Credits
 Inspired by yairEO's jQuery plugin ([fakescroll](https://github.com/yairEO/fakescroll))
