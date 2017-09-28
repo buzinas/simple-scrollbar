@@ -37,7 +37,18 @@
       d.removeEventListener('mouseup', stop);
     }
   }
-
+  function getHiddenParent(element){
+    var hiddenParent="";
+    while (element.parentNode !== null && element.parentNode.offsetHeight === 0) {
+      if(element.parentNode.style.display==="none") { 
+      hiddenParent = element.parentNode;
+      return hiddenParent;
+    }
+    element = element.parentNode;
+    }
+    return hiddenParent;
+  }
+  
   // Constructor
   function ss(el) {
     this.target = el;
@@ -80,10 +91,26 @@
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
     }
+    if(el.offsetHeight===0){
+      var visibilityObserver=new MutationObserver(function(visibilityMutations){
+        console.log("Visibility change called!!");
+        moveBar();
+        visibilityObserver.disconnect();
+      });
+      var config={attributes:true,childList:false,characterData:false,subtree:false,attributeFilter:["class","style"]};
+      var hiddenParent=el;
+      if(hiddenParent.style.display!=="none"){
+        hiddenParent=getHiddenParent(hiddenParent);
+      }
+      if(hiddenParent!==""){
+        visibilityObserver.observe(hiddenParent,config);
+      }
+    }
     var mutationObserver = new MutationObserver(function(mutations){
       mutations.forEach(console.info);
       moveBar();
-    });    var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
+    });    
+    var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
     mutationObserver.observe(this.el, observerOptions);
   }
 

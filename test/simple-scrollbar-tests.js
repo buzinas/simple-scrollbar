@@ -41,9 +41,7 @@ describe('simple scrollbar', function () {
         })
         it('should show scrollbar if content height is taller than viewport after init', function (done) {
             SimpleScrollbar.initEl(viewport);
-
             content.style.height = '500px';
-
             setTimeout(function () {
                 expect(getScrollbar().offsetParent).toBeTruthy();
                 expect(getScrollbar().style.top).toBe('0%');
@@ -51,12 +49,11 @@ describe('simple scrollbar', function () {
             });
         });
         it('should show scrollbar if content becomes visible after init', function (done) {
-            content.style.height = '500px';
             document.body.style.display = 'none';
+            content.style.height = '500px';
             SimpleScrollbar.initEl(viewport);
-
+            document.body.style.display = 'block';
             setTimeout(function () {
-                document.body.style.display = 'block';
                 expect(getScrollbar().offsetParent).toBeTruthy();
                 expect(getScrollbar().style.top).toBe('0%');
                 done();
