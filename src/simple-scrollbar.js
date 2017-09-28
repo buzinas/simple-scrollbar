@@ -1,5 +1,5 @@
-(function(w, d) {
-  var raf = w.requestAnimationFrame || w.setImmediate || function(c) { return setTimeout(c, 0); };
+(function (w, d) {
+  var raf = w.requestAnimationFrame || w.setImmediate || function (c) { return setTimeout(c, 0); };
 
   function initEl(el) {
     if (el.hasOwnProperty('data-simple-scrollbar')) return;
@@ -10,7 +10,7 @@
   function dragDealer(el, context) {
     var lastPageY;
 
-    el.addEventListener('mousedown', function(e) {
+    el.addEventListener('mousedown', function (e) {
       lastPageY = e.pageY;
       el.classList.add('ss-grabbed');
       d.body.classList.add('ss-grabbed');
@@ -25,7 +25,7 @@
       var delta = e.pageY - lastPageY;
       lastPageY = e.pageY;
 
-      raf(function() {
+      raf(function () {
         context.el.scrollTop += delta / context.scrollRatio;
       });
     }
@@ -37,36 +37,36 @@
       d.removeEventListener('mouseup', stop);
     }
   }
-  function getHiddenParent(element){
-    var hiddenParent="";
+  function getHiddenParent(element) {
+    var hiddenParent = "";
     while (element.parentNode !== null && element.parentNode.offsetHeight === 0) {
-      if(element.parentNode.style.display==="none") { 
-      hiddenParent = element.parentNode;
-      return hiddenParent;
-    }
-    element = element.parentNode;
+      if (element.parentNode.style.display === "none") {
+        hiddenParent = element.parentNode;
+        return hiddenParent;
+      }
+      element = element.parentNode;
     }
     return hiddenParent;
   }
   function debounce(delay, func) {
     var due;
     return function () {
-        const start = (new Date()).valueOf();
-        function tryCall() {
-            const now = (new Date()).valueOf();
-            if (now >= due) {
-                func();
-            } else {
-                setTimeout(tryCall, due - now);
-            }
-        }
-        if (due !== undefined && start < due) {
+      const start = (new Date()).valueOf();
+      function tryCall() {
+        const now = (new Date()).valueOf();
+        if (now >= due) {
+          func();
         } else {
-            setTimeout(tryCall, delay);
+          setTimeout(tryCall, due - now);
         }
-        due = start + delay;
+      }
+      if (due !== undefined && start < due) {
+      } else {
+        setTimeout(tryCall, delay);
+      }
+      due = start + delay;
     };
-}
+  }
   // Constructor
   function ss(el) {
     this.target = el;
@@ -99,42 +99,42 @@
     this.moveBar();
     var moveBar = this.moveBar.bind(this);
     const moveBarDebounced = debounce(200, moveBar);
-    
+
     this.el.addEventListener('scroll', moveBar);
     this.el.addEventListener('mouseenter', moveBar);
 
-    this.target.classList.add('ss-container'); 
-      
+    this.target.classList.add('ss-container');
+
     var css = window.getComputedStyle(el);
-  	if (css['height'] === '0px' && css['max-height'] !== '0px') {
-    	el.style.height = css['max-height'];
+    if (css['height'] === '0px' && css['max-height'] !== '0px') {
+      el.style.height = css['max-height'];
     }
-    if(el.offsetHeight===0){
-      var visibilityObserver=new MutationObserver(function(visibilityMutations){
+    if (el.offsetHeight === 0) {
+      var visibilityObserver = new MutationObserver(function (visibilityMutations) {
         moveBar();
         visibilityObserver.disconnect();
       });
-      var config={attributes:true,childList:false,characterData:false,subtree:false,attributeFilter:["class","style"]};
-      var hiddenParent=el;
-      if(hiddenParent.style.display!=="none"){
-        hiddenParent=getHiddenParent(hiddenParent);
+      var config = { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["class", "style"] };
+      var hiddenParent = el;
+      if (hiddenParent.style.display !== "none") {
+        hiddenParent = getHiddenParent(hiddenParent);
       }
-      if(hiddenParent!==""){
-        visibilityObserver.observe(hiddenParent,config);
+      if (hiddenParent !== "") {
+        visibilityObserver.observe(hiddenParent, config);
       }
     }
-    var mutationObserver = new MutationObserver(function(mutations){
+    var mutationObserver = new MutationObserver(function (mutations) {
       moveBarDebounced();
-    });    
+    });
     var observerOptions = { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["class", "style"] };
     mutationObserver.observe(this.el, observerOptions);
   }
 
   ss.prototype = {
-    moveBar: function(e) {
+    moveBar: function (e) {
       var totalHeight = this.el.scrollHeight,
-          ownHeight = this.el.clientHeight,
-          _this = this;
+        ownHeight = this.el.clientHeight,
+        _this = this;
 
       this.scrollRatio = ownHeight / totalHeight;
 
@@ -143,13 +143,13 @@
         (_this.target.clientWidth - _this.bar.clientWidth + 18) :
         (_this.target.clientWidth - _this.bar.clientWidth) * -1;
 
-      raf(function() {
+      raf(function () {
         // Hide scrollbar if no scrolling is possible
-        if(_this.scrollRatio >= 1) {
+        if (_this.scrollRatio >= 1) {
           _this.bar.classList.add('ss-hidden')
         } else {
           _this.bar.classList.remove('ss-hidden')
-          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 10) + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:' + right + 'px;';
+          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 10) + '%; top:' + (_this.el.scrollTop / totalHeight) * 100 + '%;right:' + right + 'px;';
         }
       });
     }
