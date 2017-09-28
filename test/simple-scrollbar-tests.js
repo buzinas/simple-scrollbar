@@ -48,16 +48,21 @@ describe('simple scrollbar', function () {
                 done();
             });
         });
-        it('should show scrollbar if content becomes visible after init', function (done) {
+        fit('should show scrollbar if content becomes visible after init', function (done) {
             document.body.style.display = 'none';
             content.style.height = '500px';
             SimpleScrollbar.initEl(viewport);
-            document.body.style.display = 'block';
-            setTimeout(function () {
+            var config={attributes:true,childList:false,characterData:false,subtree:false,attributeFilter:["style"]};
+            var visibilityObserver=new MutationObserver(function(){
+                setTimeout(function(){
                 expect(getScrollbar().offsetParent).toBeTruthy();
                 expect(getScrollbar().style.top).toBe('0%');
                 done();
             });
+            });
+            visibilityObserver.observe(document.body,config);
+
+            document.body.style.display = 'block';
         });
     })
     describe('when content is taller than viewport', function () {
