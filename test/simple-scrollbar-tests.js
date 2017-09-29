@@ -84,12 +84,54 @@ describe('simple scrollbar', function () {
                 setTimeout(function () {
                     expect(getScrollHandle().offsetParent).toBeTruthy();
                     expect(getScrollHandle().style.top).toBe('0%');
+                    visibilityObserver.disconnect();
                     done();
                 });
             });
             visibilityObserver.observe(document.body, config);
 
             document.body.style.display = 'block';
+        });
+        it('should observe the outest hidden parent', function (done) {
+            document.body.style.display = 'none';
+            testContainer.style.display = 'none';
+            content.style.height = '500px';
+            SimpleScrollbar.initEl(viewport);
+            var config = { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["style"] };
+            var visibilityObserver = new MutationObserver(function () {
+                setTimeout(function () {
+                    expect(getScrollHandle().offsetParent).toBeTruthy();
+                    expect(getScrollHandle().style.top).toBe('0%');
+                    visibilityObserver.disconnect();
+                    done();
+                });
+            }, 2);
+            visibilityObserver.observe(document.body, config);
+
+            testContainer.style.display = 'block';
+            setTimeout(function(){
+                document.body.style.display = 'block';
+            }, 1);
+        });
+        it('should use the effective style to determine visibility', function (done) {
+            var style = document.createElement('style');
+            style.textContent = '.hidden{display:none;}';
+            document.head.appendChild(style);
+            document.body.classList.add('hidden');
+            content.style.height = '500px';
+            SimpleScrollbar.initEl(viewport);
+            var config = { attributes: true, attributeFilter: ["class"], childList: false, characterData: false, subtree: false };
+            var visibilityObserver = new MutationObserver(function () {
+                setTimeout(function () {
+                    expect(getScrollHandle().offsetParent).toBeTruthy();
+                    expect(getScrollHandle().style.top).toBe('0%');
+                    visibilityObserver.disconnect();
+                    done();
+                });
+            });
+            visibilityObserver.observe(document.body, config);
+
+            document.body.classList.remove('hidden');
         });
     })
     describe('when content is taller than viewport', function () {

@@ -37,16 +37,16 @@
       d.removeEventListener('mouseup', stop);
     }
   }
-  function getHiddenParent(element) {
-    var hiddenParent = "";
-    while (element.parentNode !== null && element.parentNode.offsetHeight === 0) {
-      if (element.parentNode.style.display === "none") {
-        hiddenParent = element.parentNode;
-        return hiddenParent;
-      }
-      element = element.parentNode;
+  function elementIsHidden(e) {
+    return e !== document.documentElement && e.offsetParent === null;
+  }
+
+  function getHiddenAncestorOrItself(element) {
+    var parent = element.parentNode
+    if (!elementIsHidden(parent)) {
+      return element;
     }
-    return hiddenParent;
+    return getHiddenAncestorOrItself(element.parentNode);
   }
   function debounce(delay, func) {
     var due;
@@ -109,19 +109,13 @@
     if (css['height'] === '0px' && css['max-height'] !== '0px') {
       el.style.height = css['max-height'];
     }
-    if (el.offsetHeight === 0) {
+    if (elementIsHidden(el)) {
       var visibilityObserver = new MutationObserver(function (visibilityMutations) {
         moveBar();
         visibilityObserver.disconnect();
       });
-      var config = { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["class", "style"] };
-      var hiddenParent = el;
-      if (hiddenParent.style.display !== "none") {
-        hiddenParent = getHiddenParent(hiddenParent);
-      }
-      if (hiddenParent !== "") {
-        visibilityObserver.observe(hiddenParent, config);
-      }
+      var config = { attributes: true, attributeFilter: ["class", "style"], childList: false, characterData: false, subtree: false };
+      visibilityObserver.observe(getHiddenAncestorOrItself(el), config);
     }
     var mutationObserver = new MutationObserver(function (mutations) {
       moveBarDebounced();
