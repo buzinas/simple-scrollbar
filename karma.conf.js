@@ -11,9 +11,10 @@ var travisConfig = {
     browsers: 'Chrome_travis_ci'
 };
 
-console.info(process.env);
+var additionalConfig = process.env.TRAVIS === 'true' ? travisConfig : {}
 
-var additionalConfig = process.env.TRAVIS ? travisConfig : {}
+console.info(process.env);
+console.info(additionalConfig);
 
 var defaultConfig = {
 
