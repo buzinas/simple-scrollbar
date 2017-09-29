@@ -3,6 +3,7 @@ describe('simple scrollbar', function () {
     var viewport;
     var content;
     var testContainer;
+    var scheduleNext = setTimeout;
     beforeEach(function () {
         testContainer = document.createElement('div');
         viewport = document.createElement('div');
@@ -28,7 +29,7 @@ describe('simple scrollbar', function () {
             SimpleScrollbar.initEl(viewport);
         })
         it('should hide scrollbar', function (done) {
-            setTimeout(function () {
+            scheduleNext(function () {
                 expect(getScrollHandle().offsetParent).toBeFalsy();
                 done();
             });
@@ -45,7 +46,7 @@ describe('simple scrollbar', function () {
             var config = { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["style"] };
             var scrollHandle = getScrollHandle();
             var scrollHandleObserver = new MutationObserver(function (visibilityMutations) {
-                setTimeout(function () {
+                scheduleNext(function () {
                     expect(getScrollHandle().offsetParent).toBeTruthy();
                     expect(getScrollHandle().style.top).toBe('0%');
                     done();
@@ -62,8 +63,8 @@ describe('simple scrollbar', function () {
             content.style.height = '500px';
             content.style.height = '600px';
             content.style.height = '700px';
-            setTimeout(function () {
-                setTimeout(function () {
+            scheduleNext(function () {
+                scheduleNext(function () {
                     expect(scrollHandleMutationSpy).toHaveBeenCalledTimes(expectedCallCount);
                     done();
                 });
@@ -75,65 +76,73 @@ describe('simple scrollbar', function () {
         it('before debounce timeout scrollbar update should not happen', function (done) {
             testDebounce(200, 0, done);
         });
-        it('should show scrollbar if content becomes visible after init', function (done) {
-            document.body.style.display = 'none';
-            content.style.height = '500px';
-            SimpleScrollbar.initEl(viewport);
-            var config = { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["style"] };
-            var visibilityObserver = new MutationObserver(function () {
-                setTimeout(function () {
-                    expect(getScrollHandle().offsetParent).toBeTruthy();
-                    expect(getScrollHandle().style.top).toBe('0%');
-                    visibilityObserver.disconnect();
-                    done();
+        describe('when content is invisible at init', function(){
+            var styleTag;
+            function hideElement(e){
+                e.classList.add('hidden');
+            }
+            function showElement(e){
+                e.classList.remove('hidden');
+            }
+            function verifyScrollbarIsShownAfterContentBecomesVisible(hiddenAncestor, done){
+                var config ={ attributes: true, attributeFilter: ['style', 'class'] };
+                var visibilityObserver = new MutationObserver(function () {
+                    scheduleNext(function () {
+                        expect(getScrollHandle().offsetParent).toBeTruthy();
+                        expect(getScrollHandle().style.top).toBe('0%');
+                        visibilityObserver.disconnect();
+                        done();
+                    });
+                });
+                visibilityObserver.observe(hiddenAncestor, config);
+            }
+            beforeEach(function(){
+                styleTag = document.createElement('style');
+                styleTag.textContent = '.hidden{display:none;}';
+                document.head.appendChild(styleTag);
+                content.style.height = '500px';
+            });
+            afterEach(function(){
+                document.head.removeChild(styleTag);
+            });
+            it('should show scrollbar if content becomes visible', function (done) {
+                hideElement(document.body);
+                SimpleScrollbar.initEl(viewport);
+
+                verifyScrollbarIsShownAfterContentBecomesVisible(document.body, done);
+                
+                showElement(document.body);
+            });
+            it('should observe the outest hidden parent', function (done) {
+                hideElement(document.body);
+                hideElement(testContainer);
+                SimpleScrollbar.initEl(viewport);
+
+                verifyScrollbarIsShownAfterContentBecomesVisible(document.body, done);
+
+                showElement(testContainer);
+                scheduleNext(function(){
+                    showElement(document.body);
                 });
             });
-            visibilityObserver.observe(document.body, config);
+            it('should use the effective style to determine visibility - body', function (done) {
+                hideElement(document.body);
+                SimpleScrollbar.initEl(viewport);
 
-            document.body.style.display = 'block';
-        });
-        it('should observe the outest hidden parent', function (done) {
-            document.body.style.display = 'none';
-            testContainer.style.display = 'none';
-            content.style.height = '500px';
-            SimpleScrollbar.initEl(viewport);
-            var config = { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["style"] };
-            var visibilityObserver = new MutationObserver(function () {
-                setTimeout(function () {
-                    expect(getScrollHandle().offsetParent).toBeTruthy();
-                    expect(getScrollHandle().style.top).toBe('0%');
-                    visibilityObserver.disconnect();
-                    done();
-                });
-            }, 2);
-            visibilityObserver.observe(document.body, config);
+                verifyScrollbarIsShownAfterContentBecomesVisible(document.body, done);
 
-            testContainer.style.display = 'block';
-            setTimeout(function(){
-                document.body.style.display = 'block';
-            }, 1);
-        });
-        it('should use the effective style to determine visibility', function (done) {
-            var style = document.createElement('style');
-            style.textContent = '.hidden{display:none;}';
-            document.head.appendChild(style);
-            document.body.classList.add('hidden');
-            content.style.height = '500px';
-            SimpleScrollbar.initEl(viewport);
-            var config = { attributes: true, attributeFilter: ["class"], childList: false, characterData: false, subtree: false };
-            var visibilityObserver = new MutationObserver(function () {
-                setTimeout(function () {
-                    expect(getScrollHandle().offsetParent).toBeTruthy();
-                    expect(getScrollHandle().style.top).toBe('0%');
-                    visibilityObserver.disconnect();
-                    done();
-                });
+                showElement(document.body);
             });
-            visibilityObserver.observe(document.body, config);
+            it('should use the effective style to determine visibility - container inside body', function (done) {
+                hideElement(testContainer);
+                SimpleScrollbar.initEl(viewport);
 
-            document.body.classList.remove('hidden');
+                verifyScrollbarIsShownAfterContentBecomesVisible(testContainer, done);
+
+                showElement(testContainer);
+            });
         });
-    })
+    });
     describe('when content is taller than viewport', function () {
         var contentHeight = 500;
         var viewportHeight = 100;
@@ -143,19 +152,19 @@ describe('simple scrollbar', function () {
             SimpleScrollbar.initEl(viewport);
         })
         it('should show scrollbar', function (done) {
-            setTimeout(function () {
+            scheduleNext(function () {
                 expect(getScrollHandle().offsetParent).toBeTruthy();
                 done();
             });
         });
         it('should put the scrollbar at the top', function (done) {
-            setTimeout(function () {
+            scheduleNext(function () {
                 expect(getScrollHandle().style.top).toBe('0%');
                 done();
             });
         });
         it('set height of scrollbar to 20%', function (done) {
-            setTimeout(function () {
+            scheduleNext(function () {
                 expect(getScrollHandle().style.height).toBe('20%');
                 done();
             });
@@ -164,7 +173,7 @@ describe('simple scrollbar', function () {
             var scrollTop = 100;
             getScrollContainer().scrollTop = scrollTop;
 
-            setTimeout(function () {
+            scheduleNext(function () {
                 var expectedTop = scrollTop / contentHeight * 100;
                 expect(getScrollHandle().style.top).toBe(expectedTop + '%');
                 done();
