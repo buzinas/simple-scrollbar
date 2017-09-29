@@ -37,17 +37,18 @@
       d.removeEventListener('mouseup', stop);
     }
   }
+
   function elementIsHidden(e) {
-    return e !== document.documentElement && e.offsetParent === null;
+    return e.offsetWidth === 0 && e.offsetHeight === 0;
   }
 
   function getHiddenAncestorOrItself(element) {
     var parent = element.parentNode
-    if (!elementIsHidden(parent)) {
-      return element;
-    }
-    return getHiddenAncestorOrItself(element.parentNode);
+    return !elementIsHidden(parent) ?
+      element :
+      getHiddenAncestorOrItself(parent);
   }
+ 
   function debounce(delay, func) {
     var due;
     return function () {
