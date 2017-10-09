@@ -1,71 +1,79 @@
 // Karma configuration
 // Generated on Mon Sep 25 2017 17:43:21 GMT+1000 (AUS Eastern Standard Time)
+console.info(process.env);
+const isCi = process.env.TRAVIS === 'true';
+const ciConfig = {
+    browsers: ['ChromeHeadless'],
+    singleRun: true,
+    autoWatch: false
+};
+module.exports = function (config) {
+    const defaultConfig = {
 
-module.exports = function(config) {
-  config.set({
-
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
-
-
-    // list of files / patterns to load in the browser
-    files: [
-      'test/*.js',
-      'src/*.js',
-      'src/*.css'
-    ],
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: '',
 
 
-    // list of files to exclude
-    exclude: [
-    ],
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: ['jasmine'],
 
 
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+        // list of files / patterns to load in the browser
+        files: [
+            'test/*.js',
+            'src/*.js',
+            'src/*.css'
+        ],
 
 
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+        // list of files to exclude
+        exclude: [
+        ],
 
 
-    // web server port
-    port: 9876,
+        // preprocess matching files before serving them to the browser
+        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        preprocessors: {
+        },
 
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
+        // test results reporter to use
+        // possible values: 'dots', 'progress'
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        reporters: ['progress'],
 
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+        // web server port
+        port: 9876,
 
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
 
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'PhantomJS'],
+        // level of logging
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
+        
+        
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
 
 
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        browsers: ['Chrome'],
 
-    // Concurrency level
-    // how many browser should be started simultaneous
-    concurrency: Infinity
-  })
-}
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: false,
+
+        // Concurrency level
+        // how many browser should be started simultaneous
+        concurrency: Infinity
+    };
+
+    config.set(Object.assign({}, defaultConfig, isCi ? ciConfig : {}));
+};
