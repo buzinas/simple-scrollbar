@@ -180,4 +180,13 @@ describe('simple scrollbar', function () {
             });
         })
     });
+    describe('when the element is a detached node', function () {
+        it('should not throw exception', function () {
+            var detachedViewport = document.createElement('div')
+            
+            expect(function () {
+                SimpleScrollbar.initEl(detachedViewport);
+            }).not.toThrow();
+        })
+    })
 });
