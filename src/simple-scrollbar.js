@@ -44,7 +44,7 @@
 
   function getHiddenAncestorOrItself(element) {
     var parent = element.parentNode
-    return !elementIsHidden(parent) ?
+    return parent === null || !elementIsHidden(parent) ?
       element :
       getHiddenAncestorOrItself(parent);
   }
