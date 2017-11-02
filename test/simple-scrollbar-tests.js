@@ -48,7 +48,7 @@ describe('simple scrollbar', function () {
             var scrollHandleObserver = new MutationObserver(function (visibilityMutations) {
                 scheduleNext(function () {
                     expect(getScrollHandle().offsetParent).toBeTruthy();
-                    expect(getScrollHandle().style.top).toBe('0%');
+                    expect(getScrollHandle().style.top).toBe('0px');
                     done();
                 });
             });
@@ -89,7 +89,7 @@ describe('simple scrollbar', function () {
                 var visibilityObserver = new MutationObserver(function () {
                     scheduleNext(function () {
                         expect(getScrollHandle().offsetParent).toBeTruthy();
-                        expect(getScrollHandle().style.top).toBe('0%');
+                        expect(getScrollHandle().style.top).toBe('0px');
                         visibilityObserver.disconnect();
                         done();
                     });
@@ -159,13 +159,13 @@ describe('simple scrollbar', function () {
         });
         it('should put the scrollbar at the top', function (done) {
             scheduleNext(function () {
-                expect(getScrollHandle().style.top).toBe('0%');
+                expect(getScrollHandle().style.top).toBe('0px');
                 done();
             });
         });
-        it('set height of scrollbar to 20%', function (done) {
+        it('set height of scrollbar to 20px', function (done) {
             scheduleNext(function () {
-                expect(getScrollHandle().style.height).toBe('20%');
+                expect(getScrollHandle().style.height).toBe('20px');
                 done();
             });
         });
@@ -175,7 +175,7 @@ describe('simple scrollbar', function () {
 
             scheduleNext(function () {
                 var expectedTop = scrollTop / contentHeight * 100;
-                expect(getScrollHandle().style.top).toBe(expectedTop + '%');
+                expect(getScrollHandle().style.top).toBe(expectedTop + 'px');
                 done();
             });
         })
@@ -188,5 +188,98 @@ describe('simple scrollbar', function () {
                 SimpleScrollbar.initEl(detachedViewport);
             }).not.toThrow();
         })
-    })
+    });
+    describe('scroll handle', function () {
+        describe('when viewport/content height ratio >= 10px', function () {
+            beforeEach(function () {
+                viewport.style.height = '200px';
+                content.style.height = '800px';
+
+                SimpleScrollbar.initEl(viewport);
+            });
+            it('should set height to viewportHeight^2/contentHeight', function (done) {
+                scheduleNext(function () {
+                    expect(getScrollHandle().style.height).toBe(Math.pow(200, 2) / 800 + 'px');
+                    done();
+                });
+            });
+            it('should set top to scrollTop/contentHeight*viewportHeight', function (done) {
+                getScrollContainer().scrollTop = 600;
+
+                scheduleNext(function () {
+                    expect(getScrollHandle().style.top).toBe(600 / 800 * 200 + 'px');
+                    done();
+                });
+            });
+        });
+
+        describe('when viewport/content height ratio >= 10px', function () {
+            beforeEach(function () {
+                viewport.style.height = '200px';
+                content.style.height = '4000px';
+
+                SimpleScrollbar.initEl(viewport);
+            });
+            it('should have minimum 10% of viewport height', function (done) {
+                scheduleNext(function () {
+                    expect(getScrollHandle().style.height).toBe('20px');
+                    done();
+                });
+            });
+            it('should set top to scrollTop/contentHeight*viewportHeight', function (done) {
+                getScrollContainer().scrollTop = 3800;
+
+                scheduleNext(function () {
+                    expect(getScrollHandle().style.top).toBe('180px');
+                    done();
+                });
+            });
+        });
+    });
+    describe('drag', function () {
+        fit('should set scrollTop', function (done) {
+            viewport.style.height = '100px';
+            content.style.height = '200px';
+            SimpleScrollbar.initEl(viewport);
+            debugger;
+            scheduleNext(function () {
+                var mousedown = new MouseEvent('mousedown', {
+                    clientY: 0
+                });
+                getScrollHandle().dispatchEvent(mousedown);
+                scheduleNext(function () {
+                    var mousemove = new MouseEvent('mousemove', {
+                        clientY: 50
+                    });
+                    document.dispatchEvent(mousemove);
+                    scheduleNext(function () {
+                        expect(getScrollContainer().scrollTop).toBe(100);
+                        done();
+                    });
+                });
+            });
+        });
+        fit('should adjust scrollTop if scroll handle is set to min heigh', function (done) {
+            viewport.style.height = '100px';
+            content.style.height = '2000px';
+            SimpleScrollbar.initEl(viewport);
+            debugger;
+            scheduleNext(function () {
+                var mousedown = new MouseEvent('mousedown', {
+                    clientY: 0
+                });
+                getScrollHandle().dispatchEvent(mousedown);
+                scheduleNext(function () {
+                    var mousemove = new MouseEvent('mousemove', {
+                        clientY: 90
+                    });
+                    document.dispatchEvent(mousemove);
+                    scheduleNext(function () {
+                        expect(getScrollContainer().scrollTop).toBe(1890);
+                        done();
+                    });
+                });
+            });
+        });
+    });
 });

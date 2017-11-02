@@ -1,5 +1,20 @@
 (function (w, d) {
   var raf = w.requestAnimationFrame || w.setImmediate || function (c) { return setTimeout(c, 0); };
+  function getScrollRatio(contentHeight, viewportHeight) {
+    return contentHeight === 0 ? 1 : viewportHeight / contentHeight;
+  }
+
+  function getHandleHeight(contentHeight, viewportHeight) {
+    return Math.max(getScrollRatio(contentHeight, viewportHeight), .10) * viewportHeight;
+  }
+
+  function getHandleRatio(contentHeight, viewportHeight) {
+    return Math.max(getScrollRatio(contentHeight, viewportHeight), .10);
+  }
+
+  function getHandleTop(contentHeight, viewportHeight, scrollTop) {
+    return Math.floor((scrollTop / contentHeight) * (viewportHeight - (1 - getScrollRatio(contentHeight, viewportHeight) / getHandleRatio(contentHeight, viewportHeight)) * getHandleHeight(contentHeight, viewportHeight)))
+  }
 
   function initEl(el) {
     if (el.hasOwnProperty('data-simple-scrollbar')) return;
@@ -26,7 +41,14 @@
       lastPageY = e.pageY;
 
       raf(function () {
-        context.el.scrollTop += delta / context.scrollRatio;
+        var contentHeight = context.el.scrollHeight;
+        if (contentHeight === 0) return;
+        var viewportHeight = context.el.clientHeight;
+        var scrollRatio = getScrollRatio(contentHeight, viewportHeight);
+        var handleRatio = getHandleRatio(contentHeight, viewportHeight);
+        var handleHeight = getHandleHeight(contentHeight, viewportHeight);
+        var handleHeightDelta = handleHeight - scrollRatio * viewportHeight;
+        context.el.scrollTop += delta / scrollRatio * ((handleHeightDelta + viewportHeight) / viewportHeight);
       });
     }
 
@@ -127,11 +149,11 @@
 
   ss.prototype = {
     moveBar: function (e) {
-      var totalHeight = this.el.scrollHeight,
-        ownHeight = this.el.clientHeight,
+      var contentHeight = this.el.scrollHeight,
+        viewportHeight = this.el.clientHeight,
         _this = this;
 
-      this.scrollRatio = ownHeight / totalHeight;
+      var scrollRatio = getScrollRatio(contentHeight, viewportHeight);
 
       var isRtl = _this.direction === 'rtl';
       var right = isRtl ?
@@ -140,11 +162,13 @@
 
       raf(function () {
         // Hide scrollbar if no scrolling is possible
-        if (_this.scrollRatio >= 1) {
+        if (scrollRatio >= 1) {
           _this.bar.classList.add('ss-hidden')
         } else {
           _this.bar.classList.remove('ss-hidden')
-          _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 10) + '%; top:' + (_this.el.scrollTop / totalHeight) * 100 + '%;right:' + right + 'px;';
+          var handleHeight = getHandleHeight(contentHeight, viewportHeight);
+          var handleTop = getHandleTop(contentHeight, viewportHeight, _this.el.scrollTop);
+          _this.bar.style.cssText = 'height:' + handleHeight + 'px; top:' + handleTop + 'px;right:' + right + 'px;';
         }
       });
     }
