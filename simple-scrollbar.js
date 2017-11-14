@@ -69,6 +69,7 @@
     dragDealer(this.bar, this);
     this.moveBar();
 
+    w.addEventListener('resize', this.moveBar.bind(this));
     this.el.addEventListener('scroll', this.moveBar.bind(this));
     this.el.addEventListener('mouseenter', this.moveBar.bind(this));
 
