@@ -37,7 +37,9 @@
   display: none;
 }
 
-.ss-container:hover .ss-scroll {
+
+.ss-container:hover .ss-scroll,
+.ss-container:active .ss-scroll {
   opacity: 1;
 }
 
