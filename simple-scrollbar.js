@@ -51,6 +51,7 @@
 
     this.el = d.createElement('div');
     this.el.setAttribute('class', 'ss-content');
+    this.el.style.width = 'calc(100% + ' + ss.scrollWidth + 'px)';
 
     if (this.direction === 'rtl') {
       this.el.classList.add('rtl');
@@ -76,8 +77,8 @@
     this.target.classList.add('ss-container');
 
     var css = w.getComputedStyle(el);
-  	if (css['height'] === '0px' && css['max-height'] !== '0px') {
-    	el.style.height = css['max-height'];
+    if (css['height'] === '0px' && css['max-height'] !== '0px') {
+        el.style.height = css['max-height'];
     }
   }
 
@@ -114,9 +115,21 @@
     }
   }
 
+  function getScrollWidth() {
+    var outer = d.createElement('div');
+    var inner = d.createElement('div');
+    outer.style.width = inner.style.width = '100%';
+    outer.style.overflow = 'scroll';
+    d.body.appendChild(outer).appendChild(inner);
+    var scroll_width = outer.offsetWidth-inner.offsetWidth;
+    outer.parentNode.removeChild(outer);
+    return scroll_width;
+  }
+
   d.addEventListener('DOMContentLoaded', initAll);
   ss.initEl = initEl;
   ss.initAll = initAll;
+  ss.scrollWidth = getScrollWidth();
 
   w.SimpleScrollbar = ss;
 })(window, document);
