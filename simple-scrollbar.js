@@ -9,7 +9,7 @@
 
   function initEl(el) {
     if (Object.prototype.hasOwnProperty.call(el, 'data-simple-scrollbar')) return;
-    Object.defineProperty(el, 'data-simple-scrollbar', new SimpleScrollbar(el));
+    Object.defineProperty(el, 'data-simple-scrollbar', { value: new SimpleScrollbar(el) });
   }
 
   // Mouse drag handler
@@ -48,7 +48,7 @@
   function ss(el) {
     this.target = el;
 
-    this.direction = window.getComputedStyle(this.target).direction;
+    this.direction = w.getComputedStyle(this.target).direction;
 
     this.bar = '<div class="ss-scroll">';
 
@@ -75,12 +75,13 @@
     dragDealer(this.bar, this);
     this.moveBar();
 
+    w.addEventListener('resize', this.moveBar.bind(this));
     this.el.addEventListener('scroll', this.moveBar.bind(this));
     this.el.addEventListener('mouseenter', this.moveBar.bind(this));
 
     this.target.classList.add('ss-container');
 
-    var css = window.getComputedStyle(el);
+    var css = w.getComputedStyle(el);
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
     }
