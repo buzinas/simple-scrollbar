@@ -23,11 +23,22 @@ If you want to make it works down to IE9, the only thing you need to do is to ad
 <!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
 ```
 
-## RTL Support
-
-Add `direction: rtl;` to your `<div>`'s CSS, and SimpleScrollbar will detect the direction automatically.
-
 ## Usage
+
+You can use this library as a script tag, or you can import it as a npm module, eg:
+
+### CommonJS
+
+```js
+const SimpleScrollbar = require('simple-scrollbar');
+```
+
+### ES2015 modules
+
+```js
+import SimpleScrollbar from 'simple-scrollbar'
+```
+
 ### Auto-binding
 Include the attribute `ss-container` in any `<div>` that you want to make scrollable, and the library will turn it for you
 
@@ -66,6 +77,11 @@ document.body.appendChild(otherDiv);
 
 SimpleScrollbar.initAll();
 ```
+
+
+### RTL Support
+
+Add `direction: rtl;` to your `<div>`'s CSS, and SimpleScrollbar will detect the direction automatically.
 
 ## Credits
 Inspired by yairEO's jQuery plugin ([fakescroll](https://github.com/yairEO/fakescroll))
