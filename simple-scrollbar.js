@@ -1,4 +1,10 @@
-(function(w, d) {
+;(function(root, factory) {
+  if (typeof exports === 'object') {
+    module.exports = factory(window, document)
+  } else {
+    root.SimpleScrollbar = factory(window, document)
+  }
+})(this, function(w, d) {
   var raf = w.requestAnimationFrame || w.setImmediate || function(c) { return setTimeout(c, 0); };
 
   function initEl(el) {
@@ -118,5 +124,6 @@
   ss.initEl = initEl;
   ss.initAll = initAll;
 
-  w.SimpleScrollbar = ss;
-})(window, document);
+  var SimpleScrollbar = ss;
+  return SimpleScrollbar;
+});
