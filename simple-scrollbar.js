@@ -9,7 +9,14 @@
 
   function initEl(el) {
     if (Object.prototype.hasOwnProperty.call(el, 'data-simple-scrollbar')) return;
-    Object.defineProperty(el, 'data-simple-scrollbar', { value: new SimpleScrollbar(el) });
+    Object.defineProperty(el, 'data-simple-scrollbar', { value: new SimpleScrollbar(el), configurable: true });
+  }
+
+  function unbindEl(el) {
+    if (!Object.prototype.hasOwnProperty.call(el, 'data-simple-scrollbar')) return;
+    el['data-simple-scrollbar'].unBind();
+    //Remove the elements property
+    delete el['data-simple-scrollbar'];
   }
 
   // Mouse drag handler
@@ -47,10 +54,13 @@
   // Constructor
   function ss(el) {
     this.target = el;
+    this.content = el.firstElementChild;
 
     this.direction = w.getComputedStyle(this.target).direction;
 
     this.bar = '<div class="ss-scroll">';
+    //Create a reference to the function binding to remove the event listeners
+    this.mB = this.moveBar.bind(this);
 
     this.wrapper = d.createElement('div');
     this.wrapper.setAttribute('class', 'ss-wrapper');
@@ -75,15 +85,32 @@
     dragDealer(this.bar, this);
     this.moveBar();
 
-    w.addEventListener('resize', this.moveBar.bind(this));
-    this.el.addEventListener('scroll', this.moveBar.bind(this));
-    this.el.addEventListener('mouseenter', this.moveBar.bind(this));
+    w.addEventListener('resize', this.mB);
+    this.el.addEventListener('scroll', this.mB);
+    this.el.addEventListener('mouseenter', this.mB);
 
     this.target.classList.add('ss-container');
 
     var css = w.getComputedStyle(el);
   	if (css['height'] === '0px' && css['max-height'] !== '0px') {
     	el.style.height = css['max-height'];
+    }
+
+    this.unBind = function() {
+      //Remove event listeners
+      w.removeEventListener('resize', this.mB);
+      this.el.removeEventListener('scroll', this.mB);
+      this.el.removeEventListener('mouseenter', this.mB);
+      
+      this.target.classList.remove('ss-container');
+
+      //Unwrap the initial content and remove remaining wrappers
+      this.target.insertBefore(this.content, this.wrapper);
+      this.target.removeChild(this.wrapper);
+
+      //Remove the bar including its drag-dealer event listener
+      this.target.removeChild(this.bar);
+      this.bar = null; //make way for the garbage collector
     }
   }
 
@@ -120,9 +147,19 @@
     }
   }
 
+  function unbindAll() {
+    var nodes = d.querySelectorAll('.ss-container');
+
+    for (var i = 0; i < nodes.length; i++) {
+      unbindEl(nodes[i]);
+    }
+  }
+
   d.addEventListener('DOMContentLoaded', initAll);
   ss.initEl = initEl;
   ss.initAll = initAll;
+  ss.unbindEl = unbindEl;
+  ss.unbindAll = unbindAll;
 
   var SimpleScrollbar = ss;
   return SimpleScrollbar;
