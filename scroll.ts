@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
-    selector: '[mb-scroll]',
+    selector: 'mb-scroll, [mb-scroll]',
     templateUrl: './scroll.html',
     styleUrls: ['./scroll.scss']
 })
