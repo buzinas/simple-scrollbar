@@ -8,8 +8,7 @@
   var raf = w.requestAnimationFrame || w.setImmediate || function(c) { return setTimeout(c, 0); };
 
   function initEl(el) {
-    if (Object.prototype.hasOwnProperty.call(el, 'data-simple-scrollbar')) return;
-    Object.defineProperty(el, 'data-simple-scrollbar', { value: new SimpleScrollbar(el) });
+    Object.defineProperty(el, 'data-simple-scrollbar', { value: new SimpleScrollbar(el), configurable: true });
   }
 
   // Mouse drag handler
