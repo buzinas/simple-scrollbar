@@ -27,6 +27,22 @@ If you want to make it works down to IE9, the only thing you need to do is to ad
 
 You can use this library as a script tag, or you can import it as a npm module, eg:
 
+### Script tag
+
+Download the script [here](https://github.com/buzinas/simple-scrollbar/blob/master/simple-scrollbar.min.js) and the styles from [here](https://github.com/buzinas/simple-scrollbar/blob/master/simple-scrollbar.css) and include it:
+
+```html
+<link rel="stylesheet" href="/path/to/simple-scrollbar.css">
+<script src="/path/to/simple-scrollbar.min.js"></script>
+```
+
+Or include it via [jsDelivr CDN](https://www.jsdelivr.com/package/npm/simple-scrollbar):
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.css">
+<script src="https://cdn.jsdelivr.net/npm/simple-scrollbar@latest/simple-scrollbar.min.js"></script>
+```
+
 ### CommonJS
 
 ```js
