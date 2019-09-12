@@ -1,3 +1,5 @@
+[![](https://data.jsdelivr.com/v1/package/npm/simple-scrollbar/badge)](https://www.jsdelivr.com/package/npm/simple-scrollbar)
+
 # SimpleScrollbar
 Very simple vanilla javascript library for creating a custom scrollbar cross-browser and cross-devices.
 
