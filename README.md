@@ -49,12 +49,14 @@ Or include it via [jsDelivr CDN](https://www.jsdelivr.com/package/npm/simple-scr
 
 ```js
 const SimpleScrollbar = require('simple-scrollbar');
+require('simple-scrollbar/simple-scrollbar.css')
 ```
 
 ### ES2015 modules
 
 ```js
 import SimpleScrollbar from 'simple-scrollbar'
+import 'simple-scrollbar/simple-scrollbar.css'
 ```
 
 ### Auto-binding
