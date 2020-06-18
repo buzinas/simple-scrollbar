@@ -82,9 +82,18 @@
     this.target.classList.add('ss-container');
 
     var css = w.getComputedStyle(el);
-  	if (css['height'] === '0px' && css['max-height'] !== '0px') {
-    	el.style.height = css['max-height'];
+    if (css['height'] === '0px' && css['max-height'] !== '0px') {
+      el.style.height = css['max-height'];
     }
+  
+    this.observer = new MutationObserver(function(list) {
+      if(list.length) this.moveBar();
+    }.bind(this));
+    
+    this.observer.observe(this.el, {
+      childList: true,
+      subtree: true,
+    });
   }
 
   ss.prototype = {

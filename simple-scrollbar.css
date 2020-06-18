@@ -35,7 +35,8 @@
 }
 
 .ss-hidden {
-  display: none;
+  top: -99999px !important;
+  left: -99999px !important;
 }
 
 .ss-container:hover .ss-scroll,
