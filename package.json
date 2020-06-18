@@ -3,6 +3,7 @@
   "version": "0.4.0",
   "description": "Very simple vanilla javascript library for creating a custom scrollbar cross-browser and cross-devices.",
   "main": "simple-scrollbar.js",
+  "types": "./types.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/buzinas/simple-scrollbar.git"
