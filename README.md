@@ -6,6 +6,11 @@ Very simple vanilla javascript library for creating a custom scrollbar cross-bro
 ## Demo
 http://buzinas.github.io/simple-scrollbar
 
+## React version
+
+I also open sourced a newer and more modern React version at:
+https://github.com/closeio/react-custom-scroller
+
 ## Benefits
 
 - Extremely lightweight (less than 1KB after gzip and minify)
@@ -17,13 +22,7 @@ http://buzinas.github.io/simple-scrollbar
 
 ## Browser Support
 
-It was developed for evergreen browsers, but it works both on IE10 and IE11 either.
-
-If you want to make it works down to IE9, the only thing you need to do is to add the [classList polyfill](https://github.com/eligrey/classList.js).
-
-```HTML
-<!--[if IE 9]><script src="classList.min.js"></script><![endif]-->
-```
+It was developed with evergreen browsers in mind, but it works on IE11.
 
 ## Usage
 
