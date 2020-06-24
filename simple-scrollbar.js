@@ -91,8 +91,8 @@
     this.target.classList.add('ss-container');
 
     var css = w.getComputedStyle(el);
-  	if (css['height'] === '0px' && css['max-height'] !== '0px') {
-    	el.style.height = css['max-height'];
+    if (css['height'] === '0px' && css['max-height'] !== '0px') {
+      el.style.height = css['max-height'];
     }
 
     this.unBind = function() {
@@ -122,16 +122,16 @@
       this.scrollRatio = ownHeight / totalHeight;
 
       var isRtl = _this.direction === 'rtl';
-      var right = isRtl ?
-        (_this.target.clientWidth - _this.bar.clientWidth + 18) :
-        (_this.target.clientWidth - _this.bar.clientWidth) * -1;
 
       raf(function() {
         // Hide scrollbar if no scrolling is possible
         if(_this.scrollRatio >= 1) {
-          _this.bar.classList.add('ss-hidden')
+          _this.bar.classList.add('ss-hidden');
         } else {
-          _this.bar.classList.remove('ss-hidden')
+          _this.bar.classList.remove('ss-hidden');
+          var right = isRtl ?
+            (_this.target.clientWidth - _this.bar.clientWidth + 18) :
+            (_this.target.clientWidth - _this.bar.clientWidth) * -1;
           _this.bar.style.cssText = 'height:' + Math.max(_this.scrollRatio * 100, 10) + '%; top:' + (_this.el.scrollTop / totalHeight ) * 100 + '%;right:' + right + 'px;';
         }
       });
