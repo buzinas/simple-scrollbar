@@ -34,10 +34,10 @@
     });
 
     function drag(e) {
-      var delta = e.pageY - lastPageY;
-      lastPageY = e.pageY;
-
       raf(function() {
+        var delta = e.pageY - lastPageY;
+        lastPageY = e.pageY;
+
         context.el.scrollTop += delta / context.scrollRatio;
       });
     }
@@ -100,7 +100,7 @@
       w.removeEventListener('resize', this.mB);
       this.el.removeEventListener('scroll', this.mB);
       this.el.removeEventListener('mouseenter', this.mB);
-      
+
       this.target.classList.remove('ss-container');
 
       //Unwrap the initial content and remove remaining wrappers
@@ -115,18 +115,19 @@
 
   ss.prototype = {
     moveBar: function(e) {
-      var totalHeight = this.el.scrollHeight,
-          ownHeight = this.el.clientHeight,
-          _this = this;
-
-      this.scrollRatio = ownHeight / totalHeight;
-
-      var isRtl = _this.direction === 'rtl';
-      var right = isRtl ?
-        (_this.target.clientWidth - _this.bar.clientWidth + 18) :
-        (_this.target.clientWidth - _this.bar.clientWidth) * -1;
+      var _this = this;
 
       raf(function() {
+        var totalHeight = _this.el.scrollHeight,
+            ownHeight = _this.el.clientHeight,
+
+        _this.scrollRatio = ownHeight / totalHeight;
+
+        var isRtl = _this.direction === 'rtl';
+        var right = isRtl ?
+          (_this.target.clientWidth - _this.bar.clientWidth + 18) :
+          (_this.target.clientWidth - _this.bar.clientWidth) * -1;
+
         // Hide scrollbar if no scrolling is possible
         if(_this.scrollRatio >= 1) {
           _this.bar.classList.add('ss-hidden')
